@@ -1,13 +1,14 @@
 #page-auth {
   display: flex;
-  align-items: stretch;
+  align-items: center;
   height: 100vh;
   
   aside {
     width: 50%;
     background-color: #835afd;
     color: #fff;
-    padding: 120px 80px;
+    padding: 100px 80px;
+    height: 100%;
 
     display: flex;
     flex-direction: column;
@@ -51,6 +52,12 @@
       align-self: center;
     }
 
+    h2 {
+      font-size: 24px;
+      margin: 64px 0 24px;
+      font-family: 'Poppins', sans-serif;
+    }
+
     form {
       input {
         height: 50px;
@@ -62,11 +69,22 @@
 
       button {
         margin-top: 16px;
+        font-size: 16px;
       }
 
       button, input {
         width: 100%;
       }      
+    }
+
+    p {
+      font-size: 14px;
+      color: #737380;
+      margin-top: 16px;
+
+      a {
+        color: #e559f9;
+      }
     }
 
     p {
@@ -89,6 +107,7 @@
     font-weight: 500;
     background-color: #ea4335;
     color: #fff;
+    font-size: 16px;
     
     display: flex;
     align-items: center;
