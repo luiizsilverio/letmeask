@@ -5,12 +5,19 @@ import { useHistory } from 'react-router-dom'
 
 import '../styles/home.scss'
 import { Button } from '../components/Button'
+import { auth, firebase } from '../services/firebase'
 
 export function Home() {
   const history = useHistory()
 
-  function navigateToNewRoom() {
-    history.push('/rooms/new')
+  function handleCreateRoom() {
+    const provider = new firebase.auth.GoogleAuthProvider()
+
+    auth.signInWithPopup(provider).then(result => {
+      console.log(result)
+      history.push('/rooms/new')
+    })
+
   }
 
   return (
@@ -24,7 +31,7 @@ export function Home() {
       <main className="main-content">
         <div>
           <img src={logoImg} alt="Logotipo Letmeask" />
-          <button className="create-room" onClick={navigateToNewRoom}>
+          <button className="create-room" onClick={handleCreateRoom}>
             <img src={googleImg} alt="Logo do Google" />
             Crie sua sala com o Google
           </button>
