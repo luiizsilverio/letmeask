@@ -13,8 +13,27 @@ type RoomParams = {
   id: string
 }
 
+type FirebaseQuestion = {
+  author: {
+    name: string
+    avatar: string
+  }
+  content: string
+  isAnswered: boolean
+  isHighlighted: boolean
+}
+
+type FirebaseQuestions = Record<string, FirebaseQuestion>
+
+type Question = FirebaseQuestion & {
+  id: string
+}
+
 export function Room() {
   const [newQuestion, setNewQuestion] = useState('')
+  const [questions, setQuestions] = useState<Question[]>([])
+  const [title, setTitle] = useState('')
+
   const { user } = useAuth()
 
   const params = useParams<RoomParams>();
@@ -50,9 +69,25 @@ export function Room() {
   useEffect(() => {
     const roomRef = database.ref(`rooms/${params.id}`)
 
-    // cria um event listener que ouve 1 única vez o valor da room
-    roomRef.once('value', room => {
-      console.log(room.val())
+    // cria um event listener que ouve toda vez que muda o valor da roomId
+    roomRef.on('value', room => {
+      const databaseRoom = room.val()
+      const firebaseQuestions: FirebaseQuestions = databaseRoom.questions || {}
+
+      // como a API retorna a coleção como objeto, e não como array, precisamos converter
+      const parsedQuestions = Object.entries(firebaseQuestions)
+        .map(([key, value]) => {
+          return {
+            id: key,
+            content: value.content,
+            author: value.author,
+            isHighlighted: value.isHighlighted,
+            isAnswered: value.isAnswered
+          }
+        })
+
+        setTitle(databaseRoom.title)
+        setQuestions(parsedQuestions)
     })
   }, [params.id])
 
@@ -67,8 +102,11 @@ export function Room() {
 
       <main>
         <div className="room-title">
-          <h1>Sala React</h1>
-          <span>4 perguntas</span>
+          <h1>Sala { title }</h1>
+          {
+            questions.length > 0 &&
+              <span>{ questions.length } pergunta(s)</span>
+          }
         </div>
 
         <form onSubmit={handleSendQuestion}>
@@ -92,10 +130,14 @@ export function Room() {
             <Button type="submit" disabled={!user}>
               Enviar pergunta
             </Button>
-            <Toaster />
           </div>
         </form>
+
+        {JSON.stringify(questions)}
+
       </main>
+
+      <Toaster />
     </div>
   )
 }

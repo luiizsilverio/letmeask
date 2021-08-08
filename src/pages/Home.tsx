@@ -3,6 +3,7 @@ import illustrationImg from '../assets/images/illustration.svg'
 import logoImg from '../assets/images/logo.svg'
 import googleImg from '../assets/images/google-icon.svg'
 import { useHistory } from 'react-router-dom'
+import toast, { Toaster } from 'react-hot-toast';
 
 import '../styles/home.scss'
 import { Button } from '../components/Button'
@@ -33,7 +34,11 @@ export function Home() {
     const roomRef = await database.ref(`rooms/${roomCode}`).get()
 
     if (!roomRef.exists()) {
-      alert('Room does not exist')
+      toast.error('Sala não existe', {
+        duration: 4000,
+        position: 'top-right'
+      })
+
       return
     }
 
@@ -70,6 +75,7 @@ export function Home() {
 
         </div>
       </main>
+      <Toaster />
     </div>
   )
 }
