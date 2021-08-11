@@ -1,11 +1,12 @@
 $cor_roxa: #835afd;
+$cor_branca: #fff;
 
 .button {
   height: 50px;
   border-radius: 8px;
   font-weight: 500;
   background-color: $cor_roxa;
-  color: #fff;
+  color: $cor_branca;
   padding: 0 32px;
   
   display: flex;
@@ -21,7 +22,7 @@ $cor_roxa: #835afd;
   }
 
   &.outlined {
-    background-color: #fff;
+    background-color: $cor_branca;
     border: 1px solid $cor_roxa;
     color: $cor_roxa;
   }
