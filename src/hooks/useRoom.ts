@@ -9,6 +9,9 @@ type FirebaseQuestion = {
   content: string
   isAnswered: boolean
   isHighlighted: boolean
+  likes: Record<string, {
+    authorId: string
+  }>
 }
 
 type FirebaseQuestions = Record<string, FirebaseQuestion>
@@ -38,12 +41,14 @@ export function useRoom(roomId: string) {
             content: value.content,
             author: value.author,
             isHighlighted: value.isHighlighted,
-            isAnswered: value.isAnswered
+            isAnswered: value.isAnswered,
+            likeCount: Object.values(value.likes ?? {}).length,
+            hasLiked: boolean
           }
         })
 
-        setTitle(databaseRoom.title)
-        setQuestions(parsedQuestions)
+      setTitle(databaseRoom.title)
+      setQuestions(parsedQuestions)
     })
   }, [roomId])
   
