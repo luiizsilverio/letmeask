@@ -29,16 +29,23 @@ export function Home() {
     if (roomCode.trim() === '') {
       return
     }
-
+    
     // buscar a sala na coleção rooms
     const roomRef = await database.ref(`rooms/${roomCode}`).get()
-
+    
     if (!roomRef.exists()) {
       toast.error('Sala não existe', {
         duration: 4000,
         position: 'top-right'
-      })
+      })            
+      return
+    }
 
+    if (roomRef.val().endedAt) {
+      toast.error('Sala já foi fechada', {
+        duration: 4000,
+        position: 'top-right'
+      })            
       return
     }
 
