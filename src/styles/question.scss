@@ -8,6 +8,16 @@
   & + .question {
     margin-top: 8px;
   }
+
+  &.highlighted {
+    background-color: #f4f8ff;    
+    border: 1px solid #835afd;
+  }
+
+  &.answered {
+    background-color: #d8dcdd;
+  }
+
 }
 
 p {
