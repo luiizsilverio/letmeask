@@ -12,6 +12,8 @@ Permite criar salas temáticas e fazer perguntas dentro dessa sala.<br />
 Além disso, permite curtir as perguntas e, se entrou como admin, permite marcar como respondida, destacar ou excluir as perguntas.<br />
 O Admin também pode encerrar a sala.<br />
 
+A aplicação está disponível [aqui](https://letmeask-nlw6-fdc48.web.app).
+
 ## :hammer_and_wrench: Tecnologias
 * <ins>React</ins>
 * <ins>Typescript</ins>
