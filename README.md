@@ -1,4 +1,4 @@
-# Letmeask
+![Letmeask](https://github.com/luiizsilverio/letmeask/blob/main/src/assets/images/logo.svg)
 ## Conteúdo
 * [Sobre o Projeto](#sobre-o-projeto)
 * [Tecnologias](#hammer_and_wrench-tecnologias)
