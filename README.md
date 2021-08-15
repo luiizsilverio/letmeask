@@ -22,7 +22,7 @@ O Admin também pode encerrar a sala.<br />
 * Deploy no <ins>Firebase</ins>
 
 ## :camera_flash: Screenshots
-![](https://github.com/luiizsilverio/letmeask/blob/main/public/assets/images/letmeask.gif)
+![](https://github.com/luiizsilverio/letmeask/blob/main/src/assets/images/letmeask.gif)
 
 ## :balance_scale: Licença
 Este projeto está licenciado sob a [licença MIT](LICENSE).
