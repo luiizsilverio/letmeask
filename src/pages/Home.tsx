@@ -12,6 +12,8 @@ import { database } from '../services/firebase'
 
 export function Home() {
   const [roomCode, setRoomCode] = useState('')
+  const [enterAsAdmin, setEnterAsAdmin] = useState(false)
+
   const history = useHistory()
   const { user, signInGoogle } = useAuth()
 
@@ -21,6 +23,10 @@ export function Home() {
     }
 
     history.push('/rooms/new')    
+  }
+
+  function handleAdmin(admin: boolean) {
+    setEnterAsAdmin(admin)    
   }
 
   async function handleJoinRoom(event: FormEvent) {
@@ -49,7 +55,11 @@ export function Home() {
       return
     }
 
-    history.push(`/rooms/${roomCode}`)    
+    if (enterAsAdmin) {
+      history.push(`/admin/rooms/${roomCode}`)    
+    } else {
+      history.push(`/rooms/${roomCode}`)    
+    }
   }
 
   return (
@@ -62,7 +72,7 @@ export function Home() {
 
       <main className="main-content">
         <div>
-          <img src={logoImg} alt="Logotipo Letmeask" />
+          <img src={logoImg} alt="Logotipo Letmeask" />          
           <button className="create-room" onClick={handleCreateRoom}>
             <img src={googleImg} alt="Logo do Google" />
             Crie sua sala com o Google
@@ -75,8 +85,15 @@ export function Home() {
               onChange={ev => setRoomCode(ev.target.value)}
               placeholder="Digite o código da sala"
             />
-            <Button type="submit">
+            <Button type="submit"
+              onClick={() =>handleAdmin(false)}
+            >
               Entrar na sala
+            </Button>
+            <Button type="submit" isAdmin 
+              onClick={() =>handleAdmin(true)}
+            >
+              Entrar como Admin
             </Button>
           </form>
 

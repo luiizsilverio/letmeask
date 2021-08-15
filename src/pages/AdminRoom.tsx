@@ -51,13 +51,15 @@ export function AdminRoom() {
   return (
     <div id="page-room">
       <header>
-        <div className="content">
-          <img src={logoImg} alt="Logotipo Letmeask" />
-          <div>
-            <RoomCode code={roomId} />
-            <Button isOutlined onClick={handleEndRoom}>Encerrar sala</Button>
+        <a href="/">  
+          <div className="content">
+            <img src={logoImg} alt="Logotipo Letmeask" />
+            <div>
+              <RoomCode code={roomId} />
+              <Button isOutlined onClick={handleEndRoom}>Encerrar sala</Button>
+            </div>
           </div>
-        </div>
+        </a>
       </header>
 
       <main>

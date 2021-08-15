@@ -65,10 +65,12 @@ export function Room() {
   return (
     <div id="page-room">
       <header>
-        <div className="content">
-          <img src={logoImg} alt="Logotipo Letmeask" />
-          <RoomCode code={roomId} />
-        </div>
+        <a href="/">  
+          <div className="content">
+              <img src={logoImg} alt="Logotipo Letmeask" />
+              <RoomCode code={roomId} />
+          </div>
+        </a>
       </header>
 
       <main>
