@@ -1,6 +1,7 @@
 import { useHistory, useParams } from 'react-router-dom'
 
 import logoImg from '../assets/images/logo.svg'
+import logoutImg from '../assets/images/logout.svg'
 import deleteImg from '../assets/images/delete.svg'
 import checkImg from '../assets/images/check.svg'
 import answerImg from '../assets/images/answer.svg'
@@ -11,6 +12,7 @@ import { RoomCode } from '../components/RoomCode'
 import { Question } from '../components/Question';
 import { useRoom } from '../hooks/useRoom';
 import { database } from '../services/firebase'
+import { useAuth } from '../hooks/useAuth'
 
 type RoomParams = {
   id: string
@@ -21,6 +23,7 @@ export function AdminRoom() {
   const params = useParams<RoomParams>();
   const roomId = params.id
   const { title, questions } = useRoom(roomId)
+  const { signOutGoogle } = useAuth()
 
   async function handleDeleteQuestion(questionId: string) {
     if (window.confirm('Tem certeza que deseja excluir esta pergunta?')) {
@@ -47,6 +50,10 @@ export function AdminRoom() {
       isHighlighted: !is_Highlighted
     })
   }
+  
+  async function handleLogout() {
+    await signOutGoogle()
+  }
 
   return (
     <div id="page-room">
@@ -57,6 +64,11 @@ export function AdminRoom() {
             <div>
               <RoomCode code={roomId} />
               <Button isOutlined onClick={handleEndRoom}>Encerrar sala</Button>
+              <button className="logout">
+                <img src={logoutImg} alt="Logout" 
+                  onClick={handleLogout}
+                />
+              </button>
             </div>
           </div>
         </a>

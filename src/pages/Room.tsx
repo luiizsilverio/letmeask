@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom'
 import toast, { Toaster } from 'react-hot-toast';
 
 import logoImg from '../assets/images/logo.svg'
+import logoutImg from '../assets/images/logout.svg'
+
 import { Button } from '../components/Button'
 import { RoomCode } from '../components/RoomCode'
 import { Question } from '../components/Question';
@@ -17,7 +19,7 @@ type RoomParams = {
 
 export function Room() {
   const [newQuestion, setNewQuestion] = useState('')
-  const { user } = useAuth()
+  const { user, signOutGoogle } = useAuth()
   const params = useParams<RoomParams>();
 
   const roomId = params.id
@@ -62,13 +64,24 @@ export function Room() {
     }
   }
 
+  async function handleLogout() {
+    await signOutGoogle()
+  }
+
   return (
     <div id="page-room">
       <header>
         <a href="/">  
           <div className="content">
               <img src={logoImg} alt="Logotipo Letmeask" />
-              <RoomCode code={roomId} />
+              <div>
+                <RoomCode code={roomId} />
+                <button className="logout">
+                  <img src={logoutImg} alt="Logout" 
+                    onClick={handleLogout}
+                  />
+                </button>
+              </div>
           </div>
         </a>
       </header>
@@ -81,7 +94,7 @@ export function Room() {
               <span>{ questions.length } pergunta(s)</span>
           }
         </div>
-
+                
         <form onSubmit={handleSendQuestion}>
           <textarea 
             placeholder="O que você quer perguntar?"

@@ -10,6 +10,7 @@ type User = {
 type AuthContextType = {
   user: User | undefined
   signInGoogle: () => Promise<void>
+  signOutGoogle: () => void
 }
 
 type AuthProviderType = {
@@ -41,6 +42,14 @@ export function AuthContextProvider(props: AuthProviderType) {
     }
   }
 
+  async function signOutGoogle() {
+    if (user?.id) {
+      await auth.signOut()
+
+      setUser({} as User)
+    }    
+  }
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       if (user) {
@@ -62,7 +71,7 @@ export function AuthContextProvider(props: AuthProviderType) {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ user, signInGoogle }}>
+    <AuthContext.Provider value={{ user, signInGoogle, signOutGoogle }}>
       { props.children }
     </AuthContext.Provider>
   )

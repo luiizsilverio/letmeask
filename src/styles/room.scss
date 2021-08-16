@@ -19,8 +19,15 @@
         gap: 16px;
 
         button {
-          height: 40px;
+          height: 32px;                  
         }
+      }
+
+      .logout {
+        height: 32px;                 
+        background: transparent;
+        cursor: pointer;
+        border: 0;
       }
     }
   }
